@@ -1,0 +1,64 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  APPLICANT
+  SELECTED
+  PARTICIPANT
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @default(uuid())
+  email     String   @unique
+  citizenId String   @unique
+  userRole  UserRole
+}
+
+enum DocumentStatus {
+  IN_PROGRESS
+  SUMITTED
+  APPROVED
+}
+
+model Profile {
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String         @unique
+  // applicant
+  citizenId          String         @unique
+  fullname           String         @unique
+  age                Int            @default(16)
+  gender             String         @default("")
+  school             String         @default("")
+  grade              String
+  // contact
+  telephone          String         @unique
+  address            String         @default("")
+  lineID             String         @unique
+  email              String         @unique
+  // parent
+  parentFullname     String         @default("")
+  relation           String         @default("")
+  parentTelephone    String         @default("")
+  // medical data
+  medicalCondition   String         @default("")
+  medicalRequirement String         @default("")
+  allergy            String         @default("")
+  dietaryLimitation  String         @default("")
+  // status
+  status             DocumentStatus @default(IN_PROGRESS)
+}
+
+model File {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  fileId   String @unique
+  fileName String @unique
+}

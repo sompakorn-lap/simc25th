@@ -1,0 +1,13 @@
+{
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "typescript.format.semicolons": "insert",
+    "typescript.preferences.quoteStyle": "double",
+    "[typescript][typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
+    "prettier.singleAttributePerLine": true
+}
