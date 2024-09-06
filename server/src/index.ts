@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import apiRoute from "@/routes/api.route";
 import { FailedResponseHandler } from "@/utils/FailedResponse";
+import path from "path";
 
 const app: Express = express();
 app.use(express.json({ limit: "1mb" }));
@@ -10,9 +11,9 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api", apiRoute);
-app.use(express.static("../client/build"));
+app.use(express.static(path.resolve("../client/build")));
 app.get("*", (req: Request, res: Response) => {
-  res.sendFile("../client/build/index.html", { root: "./" });
+  res.sendFile(path.resolve("../client/build/index.html"));
 });
 app.use(FailedResponseHandler);
 
