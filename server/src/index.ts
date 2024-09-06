@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import apiRoute from "@/routes/api.route";
@@ -10,7 +10,10 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api", apiRoute);
-
+app.use(express.static("../client/build"));
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile("../client/build/index.html", { root: "./" });
+});
 app.use(FailedResponseHandler);
 
 const port: number = parseInt(process.env.PORT as string) || 3000;
