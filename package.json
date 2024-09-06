@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "",
-    "build": ""
+    "start": "cd server && npm start",
+    "build:server": "cd server && npm i && npm run build",
+    "build:client": "cd client && npm i && npm run build",
+    "build": "npm run build:server && npm run build:client"
+  },
+  "engines": {
+    "node": ">=18.18.0 <19.0.0"
   },
   "author": "BOM S. LAP",
   "license": "ISC",

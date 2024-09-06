@@ -14,7 +14,12 @@ const SignUpFormSchema = yup.object({
   lineID: yup.string().required(),
   email: yup.string().required().email(),
   citizenId: yup.string().required(),
-  citizenImage: yup.mixed().required(),
+  citizenImage: yup
+    .mixed()
+    .required()
+    .test("fileSize", "The file is too large", (value: FileList) => {
+      return value && value[0] && value[0].size <= 2000000;
+    }),
   grade: yup.string().required(),
 });
 

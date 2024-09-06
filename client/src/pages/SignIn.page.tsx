@@ -10,7 +10,6 @@ function SignInPage() {
   async function signin() {
     try {
       const res = await axios.get(`/api/auth/signin/${signinToken}`);
-      // console.log(res.data);
       setAuth(res.data);
     } catch (err) {}
   }
