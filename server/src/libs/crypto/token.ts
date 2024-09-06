@@ -3,6 +3,7 @@ import { UserRole } from "@prisma/client";
 import { createToken, validateToken } from "./crypto";
 import { sendMail } from "@/libs/google/gmail";
 import FailedResponse from "@/utils/FailedResponse";
+import SignInEmail from "./signin.email";
 
 type RefreshTokenType = {
   userId: string;
@@ -27,7 +28,7 @@ export async function createRefreshToken(data: RefreshTokenType) {
   await sendMail({
     to: email,
     subject: "signin link",
-    html: `<p>${citizenId}: ${refreshToken}</p>`,
+    html: SignInEmail({ citizenId, signinToken: refreshToken }),
   });
 }
 
