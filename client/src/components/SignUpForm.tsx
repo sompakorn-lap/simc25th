@@ -7,7 +7,6 @@ import Select from "./ui/Select";
 import SubmitButton from "./ui/SubmitButton";
 import axios, { AxiosError } from "axios";
 import getFileData from "../utils/getFileData";
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 const SignUpFormSchema = yup.object({
