@@ -4,6 +4,7 @@ import Footer from "./components/layout/Footer";
 import HomePage from "./pages/Home.page";
 import SignUpPage from "./pages/SignUp.page";
 import SignInPage from "./pages/SignIn.page";
+import DashBoardPage from "./pages/DashBoard.page";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         width: "100vw",
         height: "100vh",
       }}
+      data-bs-theme="dark"
     >
       <Navbar />
       <main className="container">
@@ -29,6 +31,10 @@ function App() {
           <Route
             path="/signin/:signinToken"
             element={<SignInPage />}
+          />
+          <Route
+            path="/dashboard"
+            element={<DashBoardPage />}
           />
         </Routes>
       </main>

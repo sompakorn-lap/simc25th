@@ -4,12 +4,14 @@ type SubmitButtonProps = {
 
 function SubmitButton({ label }: SubmitButtonProps) {
   return (
-    <button
-      type="submit"
-      className="btn btn-success w-100"
-    >
-      {label}
-    </button>
+    <div className="mb-2">
+      <button
+        type="submit"
+        className="btn btn-success w-100"
+      >
+        {label}
+      </button>
+    </div>
   );
 }
 

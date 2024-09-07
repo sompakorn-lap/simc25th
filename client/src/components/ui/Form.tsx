@@ -7,7 +7,7 @@ type FormProps = {
 function Form({ children, ...formProps }: FormProps) {
   return (
     <form
-      className="p-2"
+      className="card shadow p-2"
       {...formProps}
     >
       {children}

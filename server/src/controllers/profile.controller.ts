@@ -11,7 +11,10 @@ export async function getProfile(
   try {
     const { userId } = await useAccessToken(req);
 
-    const profile = await prisma.profile.findUnique({ where: { userId } });
+    const profile = await prisma.profile.findUnique({
+      where: { userId },
+      omit: { id: true, userId: true },
+    });
     if (!profile) throw new FailedResponse(404, "");
 
     return res.status(200).json(profile);
@@ -73,7 +76,10 @@ export async function getProfileByUserId(
   try {
     const { userId } = req.params as { userId: string };
 
-    const profile = await prisma.profile.findUnique({ where: { userId } });
+    const profile = await prisma.profile.findUnique({
+      where: { userId },
+      omit: { id: true, userId: true },
+    });
     if (!profile) throw new FailedResponse(404, "");
 
     return res.status(200).json(profile);

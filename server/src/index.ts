@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 import apiRoute from "@/routes/api.route";
 import { FailedResponseHandler } from "@/utils/FailedResponse";
-import path from "path";
 
 const app: Express = express();
 app.use(express.json({ limit: "1mb" }));

@@ -27,7 +27,11 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
     const duplicate = await prisma.user.findFirst({
       where: { OR: [{ email }, { citizenId }] },
     });
-    if (duplicate) throw new FailedResponse(409, "");
+    if (duplicate)
+      throw new FailedResponse(
+        409,
+        "หมายเลขบัตรประจำตัวประชาชนหรืออีเมลด้านบนถูกใช้ไปแล้ว"
+      );
 
     const { userId } = await prisma.user.create({
       data: {

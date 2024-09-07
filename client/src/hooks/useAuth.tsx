@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 
 type AuthType = {
   userId: string;
@@ -7,12 +7,16 @@ type AuthType = {
 
 type AuthContextType = {
   auth: AuthType;
-  setAuth: (auth: AuthType) => void;
+  setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [auth, setAuth] = useState<AuthType>(null);
 
   return (
@@ -23,5 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export default function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("AuthConext not provide.");
+  return context;
 }

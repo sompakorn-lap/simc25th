@@ -23,6 +23,14 @@ model User {
   userRole  UserRole
 }
 
+model SelectedStatus {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String
+  statusTranscript  DocumentStatus @default(IN_PROGRESS)
+  statusPermission  DocumentStatus @default(IN_PROGRESS)
+  statusTransaction DocumentStatus @default(IN_PROGRESS)
+}
+
 enum DocumentStatus {
   IN_PROGRESS
   SUMITTED
@@ -61,4 +69,68 @@ model File {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   fileId   String @unique
   fileName String @unique
+}
+
+enum QuestionType {
+  WRITING
+  CHOICE
+}
+
+enum QuestionSet {
+  IQ
+  ETHICS
+  KNOWLEDGE
+  SIRIRAJ
+  CREATIVE
+}
+
+model Question {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  questionSet  QuestionSet
+  questionId   String       @unique @default(uuid())
+  questionType QuestionType
+}
+
+type Choice {
+  text  String
+  score Float
+}
+
+model ChoiceQuestion {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  questionId        String   @unique
+  questionText      String
+  questionImageName String?
+  choices           Choice[]
+}
+
+model WritingQuestion {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  questionId        String  @unique
+  questionText      String
+  questionImageName String?
+}
+
+model Submission {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+  questionSet  QuestionSet
+  questionIds  String[]
+  answers      Answer[]
+  currentIndex Int         @default(0)
+
+  @@unique([userId, questionSet])
+}
+
+model Answer {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  questionSet QuestionSet
+  questionId  String
+  answer      String         @default("")
+  score       Float          @default(0)
+  status      DocumentStatus @default(IN_PROGRESS)
+  submission  Submission     @relation(fields: [userId, questionSet], references: [userId, questionSet])
+
+  @@unique([userId, questionId])
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 function SignInPage() {
@@ -18,7 +18,7 @@ function SignInPage() {
     signin();
   }, []);
 
-  return <></>;
+  return <Navigate to="/dashboard" />;
 }
 
 export default SignInPage;
