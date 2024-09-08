@@ -79,13 +79,14 @@ export async function signin(req: Request, res: Response, next: NextFunction) {
 
 export async function refresh(req: Request, res: Response, next: NextFunction) {
   try {
-    const { userId, userRole } = await useAccessToken(req);
+    const { userId } = await useAccessToken(req);
 
-    const available = await prisma.user.findUnique({
-      where: { userId, userRole },
+    const user = await prisma.user.findUnique({
+      where: { userId },
     });
-    if (!available) throw new FailedResponse(401, "");
+    if (!user) throw new FailedResponse(401, "");
 
+    const { userRole } = user;
     await createAccessToken(res, { userId, userRole });
     return res.status(200).json({ userId, userRole });
   } catch (err) {

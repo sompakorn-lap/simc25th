@@ -72,8 +72,9 @@ model File {
 }
 
 enum QuestionType {
-  WRITING
-  CHOICE
+  LONG_ANSWER
+  SHORT_ANSWER
+  MCQ
 }
 
 enum QuestionSet {

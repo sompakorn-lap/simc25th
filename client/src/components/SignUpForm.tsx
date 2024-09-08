@@ -7,6 +7,7 @@ import Select from "./ui/Select";
 import SubmitButton from "./ui/SubmitButton";
 import { useSignUp } from "../api/auth.api";
 import { AxiosError } from "axios";
+import Loading from "./Loading";
 
 const SignUpFormSchema = yup.object({
   fullname: yup.string().required(),
@@ -29,7 +30,7 @@ function SignUpForm() {
   const errorMessage = (error as AxiosError)?.response?.data as string;
   const disabled = isPending;
 
-  if (isPending) return <h1>Loading</h1>;
+  if (isPending) return <Loading />;
   if (isSuccess) return <h1>น้องรอรับอีเมลเข้าสู่เว็บไซต์ได้เลย</h1>;
   return (
     <Form onSubmit={handleSubmit((data: SignUpFormType) => mutate(data))}>

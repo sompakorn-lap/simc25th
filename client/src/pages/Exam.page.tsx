@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +10,7 @@ import {
 } from "../api/exam/answer.api";
 import useFormDebounceCallback from "../hooks/useFormDebounceCallback";
 import { useGetSubmission } from "../api/exam/submission.api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const AnswerSchema = yup.object({ answer: yup.string().required() });
 type AnswerType = yup.InferType<typeof AnswerSchema>;
@@ -24,7 +24,7 @@ const questionSetTH: Record<string, string> = {
 };
 
 function ExamPage() {
-  const { control, reset, handleSubmit, watch } = useForm<AnswerType>({
+  const { register, reset, handleSubmit, watch } = useForm<AnswerType>({
     resolver: yupResolver(AnswerSchema),
   });
 
@@ -33,12 +33,14 @@ function ExamPage() {
   const getSubmission = useGetSubmission(questionSet);
   const { questionIds = [], currentIndex = 0 } = getSubmission.data || {};
   const questionId = questionIds[currentIndex];
-  const questionTitle = `PART: ${questionSetTH[questionSet]} (${
-    currentIndex + 1
-  }/${questionIds.length})`;
 
   const getQuestion = useGetQuestion(questionId);
-  const { questionText = "", questionImageName = "" } = getQuestion.data || {};
+  const {
+    questionText = "",
+    questionImageName = "",
+    questionType = "",
+    choices = [],
+  } = getQuestion.data || {};
 
   const submitAnswer = useSubmitAnswer(questionSet, questionId);
   const updateAnswer = useUpdateAnswer(questionId);
@@ -54,12 +56,35 @@ function ExamPage() {
     500
   );
 
-  if (currentIndex >= questionIds.length) return <h1>FINISH</h1>;
+  if (currentIndex >= questionIds.length)
+    return (
+      <div className="card">
+        <div className="card-header text-start">
+          <h5>{`PART: ${questionSetTH[questionSet]}`}</h5>
+        </div>
+        <div className="card-body">
+          <p>น้องทำข้อสอบ part นี้เสร็จเรียบร้อยแล้ว</p>
+        </div>
+        <div className="card-footer">
+          <Link
+            className="btn btn-primary w-100"
+            to="/dashboard"
+          >
+            กลับไปยังหน้า dashboard
+          </Link>
+        </div>
+      </div>
+    );
   return (
     <form
       className="card"
       onSubmit={handleSubmit((data: AnswerType) => submitAnswer.mutate(data))}
     >
+      <div className="card-header text-start">
+        <h5>{`PART: ${questionSetTH[questionSet]} (${currentIndex + 1}/${
+          questionIds.length
+        })`}</h5>
+      </div>
       {questionImageName ? (
         <img
           className="card-img-top"
@@ -67,20 +92,82 @@ function ExamPage() {
         />
       ) : null}
       <div className="card-body">
-        <h5 className="card-title">{questionTitle}</h5>
         <p>{questionText}</p>
-        <div>
-          <input {...control.register("answer")} />
-        </div>
+        {questionType === "MCQ" ? (
+          <ExamMCQ
+            register={register}
+            choices={choices}
+          />
+        ) : null}
+        {questionType === "SHORT_ANSWER" ? (
+          <ExamShortAnswer register={register} />
+        ) : null}
+        {questionType === "LONG_ANSWER" ? (
+          <ExamLongAnswer register={register} />
+        ) : null}
+      </div>
+      <div className="card-footer">
         <button
-          className="btn btn-primary"
+          className="btn btn-success w-100"
           type="submit"
           disabled={submitAnswer.isPending}
         >
-          ข้อถัดไป
+          {currentIndex < questionIds.length - 1
+            ? "ข้อถัดไป"
+            : "ข้อสุดท้ายแล้ว"}
         </button>
       </div>
     </form>
+  );
+}
+
+function ExamMCQ({
+  register,
+  choices,
+}: {
+  register: any;
+  choices: Array<{ text: string }>;
+}) {
+  const id = useId();
+
+  return (
+    <div className="form-check">
+      {choices.map(({ text }, index) => (
+        <div key={`${id}-${index}`}>
+          <input
+            className="form-check-input"
+            {...register("answer")}
+            type="radio"
+            id={`${id}-${index}`}
+            value={text}
+          />
+          <label
+            className="form-check-label"
+            htmlFor={`${id}-${index}`}
+          >
+            {text}
+          </label>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ExamShortAnswer({ register }: { register: any }) {
+  return (
+    <input
+      className="form-control"
+      {...register("answer")}
+    />
+  );
+}
+
+function ExamLongAnswer({ register }: { register: any }) {
+  return (
+    <textarea
+      className="form-control"
+      {...register("answer")}
+    />
   );
 }
 

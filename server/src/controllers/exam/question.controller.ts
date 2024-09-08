@@ -61,7 +61,12 @@ export async function getQuestionByQuestionId(
       omit: { id: true },
     });
     if (!question) throw new FailedResponse(404, "");
-    return res.status(200).json(question);
+    const { choices, ...questionData } = question;
+
+    return res.status(200).json({
+      ...questionData,
+      choices: choices.map(({ text }) => ({ text })),
+    });
   } catch (err) {
     next(err);
   }
