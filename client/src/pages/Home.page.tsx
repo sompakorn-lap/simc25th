@@ -118,7 +118,12 @@ function HomePage() {
               className="rounded"
             >
               <h2>มาสมัครกันเลย</h2>
-              <button className="btn btn-primary">ลงทะเบียน</button>
+              <Link
+                to="/signup"
+                className="btn btn-primary"
+              >
+                ลงทะเบียน
+              </Link>
             </div>
           </div>
         </div>
