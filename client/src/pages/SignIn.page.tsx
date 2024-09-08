@@ -1,24 +1,16 @@
-import axios from "axios";
-import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { useSignIn } from "../api/auth.api";
+import { AxiosError } from "axios";
 
 function SignInPage() {
-  const { setAuth } = useAuth();
   const { signinToken } = useParams();
 
-  async function signin() {
-    try {
-      const res = await axios.get(`/api/auth/signin/${signinToken}`);
-      setAuth(res.data);
-    } catch (err) {}
-  }
+  const { isLoading, isSuccess, error } = useSignIn(signinToken as string);
+  const errorMessage = (error as AxiosError)?.response?.data as string;
 
-  useEffect(() => {
-    signin();
-  }, []);
-
-  return <Navigate to="/dashboard" />;
+  if (isLoading) return <h1>loading</h1>;
+  if (error) return <h1>{errorMessage}</h1>;
+  if (isSuccess) return <Navigate to="/dashboard" />;
 }
 
 export default SignInPage;

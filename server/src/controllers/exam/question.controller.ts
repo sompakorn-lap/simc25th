@@ -3,6 +3,20 @@ import prisma from "@/libs/prisma/prisma";
 import FailedResponse from "@/utils/FailedResponse";
 import { QuestionSet, QuestionType } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import { randomUUID } from "crypto";
+
+type Choice = {
+  text: string;
+  score: number;
+};
+
+type CreateQuestionReqBodyType = {
+  questionSet: QuestionSet;
+  questionType: QuestionType;
+  questionText: string;
+  questionImageData: string | null;
+  choices: Choice[];
+};
 
 export async function createQuestion(
   req: Request,
@@ -10,26 +24,24 @@ export async function createQuestion(
   next: NextFunction
 ) {
   try {
-    const { questionSet, questionType } = req.body as {
-      questionSet: QuestionSet;
-      questionType: QuestionType;
-    };
-    const { questionId } = await prisma.question.create({
+    const { questionImageData, choices, ...data } =
+      req.body as CreateQuestionReqBodyType;
+
+    const questionImageName = questionImageData
+      ? await uploadFile(
+          "exam",
+          `questionImage-${randomUUID()}`,
+          questionImageData
+        )
+      : null;
+
+    await prisma.question.create({
       data: {
-        questionSet,
-        questionType,
+        ...data,
+        questionImageName,
+        choices,
       },
     });
-
-    const { questionText } = req.body as { questionText: string };
-    if (questionType === "WRITING") {
-      await prisma.writingQuestion.create({
-        data: {
-          questionId,
-          questionText,
-        },
-      });
-    }
     return res.status(200).send();
   } catch (err) {
     next(err);
@@ -46,18 +58,10 @@ export async function getQuestionByQuestionId(
 
     const question = await prisma.question.findUnique({
       where: { questionId },
+      omit: { id: true },
     });
     if (!question) throw new FailedResponse(404, "");
-
-    const { questionType } = question;
-    if (questionType === "WRITING") {
-      const writingQuestion = await prisma.writingQuestion.findUnique({
-        where: { questionId },
-        omit: { id: true, questionId: true },
-      });
-      if (!writingQuestion) throw new FailedResponse(404, "");
-      return res.status(200).json({ ...writingQuestion, questionType });
-    }
+    return res.status(200).json(question);
   } catch (err) {
     next(err);
   }

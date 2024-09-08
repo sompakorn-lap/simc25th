@@ -102,3 +102,33 @@ export async function submitAnswerByQuestionId(
     next(err);
   }
 }
+
+export async function approveAnswerByUserIdAndQuestionId(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId, questionId } = req.params as {
+      userId: string;
+      questionId: string;
+    };
+    const { score } = req.body as { score: number };
+
+    const answer = await prisma.answer.findUnique({
+      where: { userId_questionId: { userId, questionId } },
+    });
+    if (!answer) throw new FailedResponse(404, "");
+
+    const { status } = answer;
+    if (status !== "SUMITTED") throw new FailedResponse(409, "");
+
+    await prisma.answer.update({
+      where: { userId_questionId: { userId, questionId } },
+      data: { score, status: "APPROVED" },
+    });
+    return res.status(200).send();
+  } catch (err) {
+    next(err);
+  }
+}

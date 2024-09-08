@@ -5,9 +5,8 @@ import Form from "./ui/Form";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
 import SubmitButton from "./ui/SubmitButton";
-import axios, { AxiosError } from "axios";
-import getFileData from "../utils/getFileData";
-import { useState } from "react";
+import { useSignUp } from "../api/auth.api";
+import { AxiosError } from "axios";
 
 const SignUpFormSchema = yup.object({
   fullname: yup.string().required(),
@@ -15,12 +14,7 @@ const SignUpFormSchema = yup.object({
   lineID: yup.string().required(),
   email: yup.string().required().email(),
   citizenId: yup.string().required(),
-  citizenImage: yup
-    .mixed<FileList>()
-    .required()
-    .test("fileSize", "The file is too large", (value: FileList) => {
-      return value && value[0] && value[0].size <= 2000000;
-    }),
+  citizenImage: yup.mixed<FileList>().required(),
   grade: yup.string().required(),
 });
 
@@ -31,32 +25,14 @@ function SignUpForm() {
     resolver: yupResolver(SignUpFormSchema),
   });
 
-  const [success, setSuccess] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const disabled = loading;
+  const { mutate, isPending, isSuccess, error } = useSignUp();
+  const errorMessage = (error as AxiosError)?.response?.data as string;
+  const disabled = isPending;
 
-  async function onSubmit(data: SignUpFormType) {
-    try {
-      setLoading(true);
-      const { citizenImage, ...signUpData } = data;
-      const citizenImageData = await getFileData(citizenImage[0]);
-      await axios.post("/api/auth/signup", { ...signUpData, citizenImageData });
-      setSuccess(true);
-    } catch (err) {
-      console.log(err);
-      const { response } = err as AxiosError;
-      setError(response?.data as string);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  if (loading) return <h1>Loading</h1>;
-  if (success) return <h1>น้องรอรับอีเมลเข้าสู่เว็บไซต์ได้เลย</h1>;
-
+  if (isPending) return <h1>Loading</h1>;
+  if (isSuccess) return <h1>น้องรอรับอีเมลเข้าสู่เว็บไซต์ได้เลย</h1>;
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit((data: SignUpFormType) => mutate(data))}>
       <Input
         control={control}
         name="fullname"
@@ -108,7 +84,7 @@ function SignUpForm() {
       </Select>
       <SubmitButton label="ยืนยันการลงทะเบียน" />
       <div className="mb-2">
-        <span className="text-danger">{error}</span>
+        <span className="text-danger">{errorMessage}</span>
       </div>
     </Form>
   );

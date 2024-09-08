@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { google } from "googleapis";
 import { PassThrough } from "stream";
 import ggauth from "./ggauth";
 import prisma from "@/libs/prisma/prisma";
+import FailedResponse from "@/utils/FailedResponse";
 
 const ggdrive = google.drive({
   version: "v3",
@@ -40,15 +41,19 @@ export async function uploadFile(
     },
   });
 
-  return fileId;
+  return fileName;
 }
 
-export async function viewFile(request: Request, response: Response) {
+export async function viewFile(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { fileName } = request.params as { fileName: string };
+    const { fileName } = req.params as { fileName: string };
 
     const file = await prisma.file.findUnique({ where: { fileName } });
-    if (!file) return response.status(404).send();
+    if (!file) throw new FailedResponse(404, "file not found.");
 
     const { fileId } = file;
     const { headers, data } = await ggdrive.files.get(
@@ -56,10 +61,9 @@ export async function viewFile(request: Request, response: Response) {
       { responseType: "stream" }
     );
 
-    response.setHeader("Content-Type", headers["content-type"]);
-    data.pipe(response);
+    res.setHeader("Content-Type", headers["content-type"]);
+    data.pipe(res);
   } catch (err) {
-    console.error(err);
-    return response.status(500).send();
+    next(err);
   }
 }

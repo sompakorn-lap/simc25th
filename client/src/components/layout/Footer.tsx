@@ -27,10 +27,10 @@ function Footer() {
         <li className="ms-3">
           <a
             className="text-body-secondary"
-            href="#"
+            href="https://www.facebook.com/sirirajmedcamp25th"
           >
             <Icon
-              icon="mdi:instagram"
+              icon="ant-design:facebook-filled"
               width={30}
               height={30}
             />
@@ -39,10 +39,22 @@ function Footer() {
         <li className="ms-3">
           <a
             className="text-body-secondary"
-            href="#"
+            href="https://www.instagram.com/sirirajmedcamp25th"
           >
             <Icon
-              icon="mdi:facebook"
+              icon="ant-design:instagram-filled"
+              width={30}
+              height={30}
+            />
+          </a>
+        </li>
+        <li className="ms-3">
+          <a
+            className="text-body-secondary"
+            href="https://www.tiktok.com/@sirirajmedicalcamp"
+          >
+            <Icon
+              icon="ant-design:tik-tok-filled"
               width={30}
               height={30}
             />

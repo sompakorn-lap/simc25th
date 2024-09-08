@@ -84,31 +84,19 @@ enum QuestionSet {
   CREATIVE
 }
 
-model Question {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  questionSet  QuestionSet
-  questionId   String       @unique @default(uuid())
-  questionType QuestionType
-}
-
 type Choice {
   text  String
   score Float
 }
 
-model ChoiceQuestion {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  questionId        String   @unique
+model Question {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  questionSet       QuestionSet
+  questionId        String       @unique @default(uuid())
+  questionType      QuestionType
   questionText      String
   questionImageName String?
   choices           Choice[]
-}
-
-model WritingQuestion {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  questionId        String  @unique
-  questionText      String
-  questionImageName String?
 }
 
 model Submission {

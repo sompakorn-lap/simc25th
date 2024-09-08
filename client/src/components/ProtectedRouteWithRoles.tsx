@@ -1,6 +1,5 @@
-import { ReactNode, useEffect } from "react";
-import useAuth from "../hooks/useAuth";
-import axios from "axios";
+import { ReactNode } from "react";
+import { useRefresh } from "../api/auth.api";
 
 type ProtectedRouteWithRolesProps = {
   allowedRoles: string[];
@@ -11,20 +10,8 @@ function ProtectedRouteWithRoles({
   allowedRoles,
   children,
 }: ProtectedRouteWithRolesProps) {
-  const { auth, setAuth } = useAuth();
+  const { auth } = useRefresh();
   const allow: boolean = allowedRoles.includes(auth?.userRole as string);
-
-  async function refresh() {
-    try {
-      const res = await axios.get("/api/auth/refresh");
-      setAuth(res.data);
-    } catch (err) {}
-  }
-
-  useEffect(() => {
-    if (auth) return;
-    refresh();
-  }, []);
 
   if (allow) return <>{children}</>;
   else if (auth) return <h1>You dont have permission</h1>;

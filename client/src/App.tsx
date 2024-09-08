@@ -5,6 +5,8 @@ import HomePage from "./pages/Home.page";
 import SignUpPage from "./pages/SignUp.page";
 import SignInPage from "./pages/SignIn.page";
 import DashBoardPage from "./pages/DashBoard.page";
+import QuestionEditor from "./components/QuestionEditor";
+import ExamEditor from "./components/ExamEditor";
 
 function App() {
   return (
@@ -35,6 +37,18 @@ function App() {
           <Route
             path="/dashboard"
             element={<DashBoardPage />}
+          />
+          <Route
+            path="/exam/:questionSet"
+            element={<ExamEditor />}
+          />
+          <Route
+            path="/test"
+            element={
+              <section>
+                <QuestionEditor />
+              </section>
+            }
           />
         </Routes>
       </main>

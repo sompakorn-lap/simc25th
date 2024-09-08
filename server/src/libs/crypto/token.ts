@@ -27,7 +27,7 @@ export async function createRefreshToken(data: RefreshTokenType) {
   const { email, citizenId } = data;
   await sendMail({
     to: email,
-    subject: "signin link",
+    subject: "SIMC25th: sign-in link",
     html: SignInEmail({ citizenId, signinToken: refreshToken }),
   });
 }

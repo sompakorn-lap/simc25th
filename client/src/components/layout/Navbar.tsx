@@ -6,17 +6,19 @@ function Navbar() {
     <nav className="navbar">
       <div className="container-fluid">
         <Link
-          className="navbar-brand mx-auto"
+          className="navbar-brand mx-auto d-flex align-items-center"
           to="/"
         >
           <img
             src={logo}
             alt="Logo"
-            width="30"
-            height="30"
+            width="55"
+            height="55"
             className="d-inline-block align-text-top"
           />
-          SIMC 25<sup>th</sup>
+          <h3 className="my-auto mx-2">
+            SIMC 25<sup>th</sup>
+          </h3>
         </Link>
       </div>
     </nav>
