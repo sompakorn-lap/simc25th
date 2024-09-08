@@ -5,8 +5,8 @@ import HomePage from "./pages/Home.page";
 import SignUpPage from "./pages/SignUp.page";
 import SignInPage from "./pages/SignIn.page";
 import DashBoardPage from "./pages/DashBoard.page";
-import QuestionEditor from "./components/QuestionEditor";
-import ExamEditor from "./components/ExamEditor";
+import CreateQuestionPage from "./pages/CreateQuestion.page";
+import ExamPage from "./pages/Exam.page";
 
 function App() {
   return (
@@ -40,16 +40,14 @@ function App() {
           />
           <Route
             path="/exam/:questionSet"
-            element={<ExamEditor />}
+            element={<ExamPage />}
           />
-          <Route
-            path="/test"
-            element={
-              <section>
-                <QuestionEditor />
-              </section>
-            }
-          />
+          <Route path="/admin">
+            <Route
+              path="createQuestion"
+              element={<CreateQuestionPage />}
+            />
+          </Route>
         </Routes>
       </main>
       <Footer />

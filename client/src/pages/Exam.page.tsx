@@ -23,7 +23,7 @@ const questionSetTH: Record<string, string> = {
   CREATIVE: "สร้างสรรค์",
 };
 
-function ExamEditor() {
+function ExamPage() {
   const { control, reset, handleSubmit, watch } = useForm<AnswerType>({
     resolver: yupResolver(AnswerSchema),
   });
@@ -84,4 +84,4 @@ function ExamEditor() {
   );
 }
 
-export default ExamEditor;
+export default ExamPage;
