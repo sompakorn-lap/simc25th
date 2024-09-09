@@ -65,6 +65,15 @@ model Profile {
   status             DocumentStatus @default(IN_PROGRESS)
 }
 
+model Document {
+  id                   String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String         @unique
+  transactionImageName String
+  transcriptFileName   String
+  permissionFileName   String
+  status               DocumentStatus @default(IN_PROGRESS)
+}
+
 model File {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   fileId   String @unique

@@ -92,6 +92,20 @@ export async function submitAnswerByQuestionId(
     });
     if (!question) throw new FailedResponse(404, "");
 
+    const { questionType } = question;
+    if (questionType === "MCQ") {
+      const { choices } = question;
+      const { answer } = req.body as { answer: string };
+      const index = choices.map(({ text }) => text).indexOf(answer);
+      const score = choices[index].score;
+      await prisma.answer.update({
+        where: {
+          userId_questionId: { userId, questionId },
+        },
+        data: { score },
+      });
+    }
+
     const { questionSet } = question;
     await prisma.submission.update({
       where: { userId_questionSet: { userId, questionSet } },
