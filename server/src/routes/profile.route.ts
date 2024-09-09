@@ -13,6 +13,6 @@ profileRoute.get("/", getProfile);
 profileRoute.put("/", updateProfile);
 profileRoute.put("/submit", submitProfile);
 profileRoute.get("/:userId", getProfileByUserId);
-profileRoute.patch("/:userId", approveProfileByUserId);
+profileRoute.patch("/approve/:userId", approveProfileByUserId);
 
 export default profileRoute;

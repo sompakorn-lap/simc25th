@@ -10,10 +10,6 @@ function DashBoardPage() {
   const { auth } = useRefresh();
 
   return (
-    // <ProtectedRouteWithDatetime
-    //   startDatetime="Fri Sep 06 2024 23:04:07 GMT+0700 (Indochina Time)"
-    //   endDatetime="Fri Sep 06 2024 23:05:07 GMT+0700 (Indochina Time)"
-    // >
     <ProtectedRouteWithRoles allowedRoles={["APPLICANT", "SELECTED", "ADMIN"]}>
       <section>
         {auth?.userRole === "APPLICANT" ? <ApplicantDashboard /> : null}
@@ -22,7 +18,6 @@ function DashBoardPage() {
         {auth?.userRole === "ADMIN" ? <AdminDashboard /> : null}
       </section>
     </ProtectedRouteWithRoles>
-    // </ProtectedRouteWithDatetime>
   );
 }
 

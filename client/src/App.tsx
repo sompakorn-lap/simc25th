@@ -7,6 +7,8 @@ import SignInPage from "./pages/SignIn.page";
 import DashBoardPage from "./pages/DashBoard.page";
 import CreateQuestionPage from "./pages/CreateQuestion.page";
 import ExamPage from "./pages/Exam.page";
+import ProfilePage from "./pages/Profile.page";
+import ApproveProfilePage from "./pages/ApproveProfile.page";
 
 function App() {
   return (
@@ -42,10 +44,18 @@ function App() {
             path="/exam/:questionSet"
             element={<ExamPage />}
           />
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          />
           <Route path="/admin">
             <Route
               path="createQuestion"
               element={<CreateQuestionPage />}
+            />
+            <Route
+              path="approveProfile/:userId"
+              element={<ApproveProfilePage />}
             />
           </Route>
         </Routes>
