@@ -69,8 +69,9 @@ function CreateQuestionPage() {
             name="questionType"
             disabled={disabled}
           >
-            <option value="WRITING">WRITING</option>
-            <option value="CHOICE">CHOICE</option>
+            <option value="LONG_ANSWER">LONG_ANSWER</option>
+            <option value="SHORT_ANSWER">SHORT_ANSWER</option>
+            <option value="MCQ">MCQ</option>
           </Select>
           <Input
             control={control}
@@ -86,7 +87,7 @@ function CreateQuestionPage() {
             type="file"
           />
 
-          {watch("questionType") === "CHOICE" ? (
+          {watch("questionType") === "MCQ" ? (
             <>
               {choices.fields.map((field, index) => (
                 <div
