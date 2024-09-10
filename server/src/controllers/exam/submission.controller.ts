@@ -21,7 +21,11 @@ export async function getSubmission(
     const questions = await prisma.question.findMany({
       where: { questionSet },
     });
-    const questionIds = questions.map(({ questionId }) => questionId);
+    const questionIds = questions
+      .map(({ questionId }) => questionId)
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
     const submission = await prisma.submission.create({
       data: {
         userId,

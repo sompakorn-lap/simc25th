@@ -92,7 +92,7 @@ function Exam() {
         />
       ) : null}
       <div className="card-body">
-        <p>{questionText}</p>
+        <p style={{ whiteSpace: "pre-line" }}>{questionText}</p>
         {questionType === "MCQ" ? (
           <ExamMCQ
             register={register}
