@@ -71,3 +71,16 @@ export async function getQuestionByQuestionId(
     next(err);
   }
 }
+
+export async function getQuestions(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const questions = await prisma.question.findMany();
+    return res.status(200).json(questions);
+  } catch (err) {
+    next(err);
+  }
+}

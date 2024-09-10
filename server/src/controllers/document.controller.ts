@@ -35,7 +35,7 @@ export async function uploadDocument(
         transactionImageName,
         transcriptFileName,
         permissionFileName,
-        status: "SUMITTED",
+        status: "SUBMITTED",
       },
     });
     return res.status(201).send();
@@ -99,9 +99,29 @@ export async function approveDocumentByUserId(
     if (!document) throw new FailedResponse(404, "");
 
     const { status } = document;
-    if (status !== "SUMITTED") throw new FailedResponse(409, "");
+    if (status !== "SUBMITTED") throw new FailedResponse(409, "");
+
+    await prisma.document.update({
+      where: { userId },
+      data: { status: "APPROVED" },
+    });
 
     return res.status(200).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSubmittedDocuments(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const documents = await prisma.document.findMany({
+      where: { status: "SUBMITTED" },
+    });
+    return res.status(200).json(documents);
   } catch (err) {
     next(err);
   }

@@ -22,21 +22,24 @@ function DocumentForm({ control, ...formProps }: DocumentFormProps) {
     <Form {...formProps}>
       <Input
         control={control}
-        label=""
+        label="หลักฐานการชำระเงิน"
         name="transactionImage"
         disabled={false}
+        type="file"
       />
       <Input
         control={control}
-        label=""
+        label="ปพ.7"
         name="transcriptFile"
         disabled={false}
+        type="file"
       />
       <Input
         control={control}
-        label=""
+        label="ใบขออนุญาติผู้ปกครอง"
         name="permissionFile"
         disabled={false}
+        type="file"
       />
       <SubmitButton label="ยืนยันการส่ง" />
     </Form>

@@ -11,3 +11,13 @@ export function useGetQuestion(questionId: string) {
     },
   });
 }
+
+export function useGetQuestionList() {
+  return useQuery({
+    queryKey: ["question_list"],
+    queryFn: async () => {
+      const res = await axios.get(`/api/exam/question/list`);
+      return res.data;
+    },
+  });
+}

@@ -11,12 +11,10 @@ function DashBoardPage() {
 
   return (
     <ProtectedRouteWithRoles allowedRoles={["APPLICANT", "SELECTED", "ADMIN"]}>
-      <section>
-        {auth?.userRole === "APPLICANT" ? <ApplicantDashboard /> : null}
-        {auth?.userRole === "SELECTED" ? <SelectedDashboard /> : null}
-        {auth?.userRole === "PARTICIPANT" ? <ParticipantDashboard /> : null}
-        {auth?.userRole === "ADMIN" ? <AdminDashboard /> : null}
-      </section>
+      {auth?.userRole === "APPLICANT" ? <ApplicantDashboard /> : null}
+      {auth?.userRole === "SELECTED" ? <SelectedDashboard /> : null}
+      {auth?.userRole === "PARTICIPANT" ? <ParticipantDashboard /> : null}
+      {auth?.userRole === "ADMIN" ? <AdminDashboard /> : null}
     </ProtectedRouteWithRoles>
   );
 }

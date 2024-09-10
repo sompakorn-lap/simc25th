@@ -60,7 +60,7 @@ export async function submitProfile(
 
     await prisma.profile.update({
       where: { userId },
-      data: { ...req.body, status: "SUMITTED" },
+      data: { ...req.body, status: "SUBMITTED" },
     });
     return res.status(200).send("");
   } catch (err) {
@@ -100,13 +100,28 @@ export async function approveProfileByUserId(
     if (!profile) throw new FailedResponse(404, "");
 
     const { status } = profile;
-    if (status !== "SUMITTED") throw new FailedResponse(409, "");
+    if (status !== "SUBMITTED") throw new FailedResponse(409, "");
 
     await prisma.profile.update({
-      where: { userId, status: "SUMITTED" },
+      where: { userId, status: "SUBMITTED" },
       data: { status: "APPROVED" },
     });
     return res.status(200).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSubmittedProfiles(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const profiles = await prisma.profile.findMany({
+      where: { status: "SUBMITTED" },
+    });
+    return res.status(200).json(profiles);
   } catch (err) {
     next(err);
   }

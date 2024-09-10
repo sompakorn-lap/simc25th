@@ -9,6 +9,14 @@ import CreateQuestionPage from "./pages/CreateQuestion.page";
 import ExamPage from "./pages/Exam.page";
 import ProfilePage from "./pages/Profile.page";
 import ApproveProfilePage from "./pages/ApproveProfile.page";
+import DocumentPage from "./pages/Document.page";
+import ApproveAnswerPage from "./pages/ApproveAnswer.page";
+import QuestionPage from "./pages/Question.page";
+import AnswerPage from "./pages/Answer.page";
+import ApproveDocumentPage from "./pages/ApproveDocument.page";
+import DocumentsPage from "./pages/Documents.page";
+import ProfilesPage from "./pages/Profiles.page";
+// import WebBg from "./assets/web-bg.png";
 
 function App() {
   return (
@@ -18,6 +26,10 @@ function App() {
         gridTemplateRows: "auto 1fr auto",
         width: "100vw",
         height: "100vh",
+        // backgroundImage: `url(${WebBg})`,
+        // backgroundRepeat: "repeat",
+        // backgroundPosition: "0 0",
+        // backgroundSize: "auto 100%",
       }}
       data-bs-theme="dark"
     >
@@ -48,14 +60,42 @@ function App() {
             path="/profile"
             element={<ProfilePage />}
           />
+          <Route
+            path="/document"
+            element={<DocumentPage />}
+          />
           <Route path="/admin">
             <Route
               path="createQuestion"
               element={<CreateQuestionPage />}
             />
             <Route
+              path="questions"
+              element={<QuestionPage />}
+            />
+            <Route
+              path="answers/:questionId"
+              element={<AnswerPage />}
+            />
+            <Route
+              path="documents"
+              element={<DocumentsPage />}
+            />
+            <Route
+              path="profiles"
+              element={<ProfilesPage />}
+            />
+            <Route
               path="approveProfile/:userId"
               element={<ApproveProfilePage />}
+            />
+            <Route
+              path="approveDocument/:userId"
+              element={<ApproveDocumentPage />}
+            />
+            <Route
+              path="approveAnswer/:userId/:questionId"
+              element={<ApproveAnswerPage />}
             />
           </Route>
         </Routes>

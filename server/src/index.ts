@@ -6,7 +6,7 @@ import apiRoute from "@/routes/api.route";
 import { FailedResponseHandler } from "@/utils/FailedResponse";
 
 const app: Express = express();
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "5mb" }));
 app.use(cors());
 app.use(cookieParser());
 

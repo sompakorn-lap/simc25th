@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CarouselImage1 from "../assets/carousel/Slide1.png";
 import CarouselImage2 from "../assets/carousel/Slide2.png";
 import CarouselImage3 from "../assets/carousel/Slide3.png";
-import SignUpImage from "../assets/signup-bg.png";
+import SignUpImage from "../assets/signup-bg.jpg";
 
 function HomePage() {
   return (
@@ -10,15 +10,16 @@ function HomePage() {
       <section className="shadow border rounded my-4 p-3">
         <h2>มารู้จักกับ ค่ายเส้นทางสู่หมอศิริราช</h2>
         <p>
-          ค่ายเส้นทางสู่หมอศิริราช คือค่ายที่จัดทำโดยนักศึกษาแพทย์ศิริราช
-          โดยมีจุดประสงค์เพื่อให้น้องๆ
+          &emsp;&emsp;ค่ายเส้นทางสู่หมอศิริราช
+          คือค่ายที่จัดทำโดยนักศึกษาแพทย์ศิริราช โดยมีจุดประสงค์เพื่อให้น้องๆ
           มัธยมศึกษาตอนปลายได้เข้ามารู้จักและสัมผัสกับคณะแพทยศาสตร์ศิริราชพยาบาล
           มหาวิทยาลัยมหิดลมากยิ่งขึ้น ทั้งในด้านหลักสูตรการเรียนการสอน
           กิจกรรมนอกหลักสูตรและ lifestyle ของนักศึกษาแพทย์ศิริราช
           รวมถึงเพื่อให้น้องๆ
           มัธยมศึกษาตอนปลายได้ใช้เป็นแนวทางการตัดสินใจเลือกศึกษาต่อในหลักสูตรแพทยศาสตรบัณฑิตในระดับชั้นอุดมศึกษาและประกอบอาชีพแพทย์ต่อไปในอนาคต
-          ในปีนี้ค่ายของเราจัดขึ้นในวันเสาร์ที่ 7 และวันอาทิตย์ที่ 8 ธันวาคม
-          2567 ที่คณะแพทยศาสตร์ศิริราชพยาบาลในรูปแบบค้างคืน
+          <br />
+          &emsp;&emsp;ในปีนี้ค่ายของเราจัดขึ้นในวันเสาร์ที่ 7 และวันอาทิตย์ที่ 8
+          ธันวาคม 2567 ที่คณะแพทยศาสตร์ศิริราชพยาบาลในรูปแบบค้างคืน
           ภายในค่ายประกอบด้วยกิจกรรมมากมายที่คัดสรรมาเป็นอย่างดีว่าน้องๆ
           มัธยมศึกษาตอนปลายจะได้รับประโยชน์สูงสุด เช่น การผ่า Gross anatomy,
           การใช้เครื่อง Ultrasound,
@@ -87,7 +88,7 @@ function HomePage() {
       <section className="shadow border rounded my-4 p-3">
         <div className="row">
           <div className="col-md-6">
-            <h2>[คำเชิญชวน by President]</h2>
+            <h2>Invitation from president</h2>
             <p>
               “ สวัสดีน้องๆ มัธยมศึกษาตอนปลายทุกคน
               พี่ทั้งสองคนเป็นประธานค่ายเส้นทางสู่หมอศิริราชครั้งที่ 25
@@ -117,7 +118,7 @@ function HomePage() {
               }}
               className="rounded"
             >
-              <h2>มาสมัครกันเลย</h2>
+              <h1>มาสมัครกันเลย</h1>
               <Link
                 to="/signup"
                 className="btn btn-primary"

@@ -42,6 +42,16 @@ export function useGetProfileByUserId(userId: string) {
   });
 }
 
+export function useGetSubmittedProfile() {
+  return useQuery({
+    queryKey: ["submitted_profiles"],
+    queryFn: async () => {
+      const res = await axios.get(`/api/profile/submitted_profiles`);
+      return res.data;
+    },
+  });
+}
+
 export function useApproveProfileByUserId(userId: string) {
   return useMutation({
     mutationFn: async () => {

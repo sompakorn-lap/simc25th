@@ -84,7 +84,7 @@ export async function submitAnswerByQuestionId(
       where: {
         userId_questionId: { userId, questionId },
       },
-      data: { ...req.body, status: "SUMITTED" },
+      data: { ...req.body, status: "SUBMITTED" },
     });
 
     const question = await prisma.question.findUnique({
@@ -135,13 +135,48 @@ export async function approveAnswerByUserIdAndQuestionId(
     if (!answer) throw new FailedResponse(404, "");
 
     const { status } = answer;
-    if (status !== "SUMITTED") throw new FailedResponse(409, "");
+    if (status !== "SUBMITTED") throw new FailedResponse(409, "");
 
     await prisma.answer.update({
       where: { userId_questionId: { userId, questionId } },
       data: { score, status: "APPROVED" },
     });
     return res.status(200).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSubmittedAnswersByQuestionId(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { questionId } = req.params as { questionId: string };
+    const answers = await prisma.answer.findMany({
+      where: { questionId, status: "SUBMITTED" },
+    });
+    return res.status(200).json(answers);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getAnswerByUserIdAndQuestionId(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId, questionId } = req.params as {
+      userId: string;
+      questionId: string;
+    };
+    const answers = await prisma.answer.findUnique({
+      where: { userId_questionId: { userId, questionId } },
+    });
+    return res.status(200).json(answers);
   } catch (err) {
     next(err);
   }

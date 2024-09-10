@@ -32,3 +32,47 @@ export function useSubmitAnswer(questionSet: string, questionId: string) {
     },
   });
 }
+
+export function useApproveAnswer(userId: string, questionId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await axios.put(
+        `/api/exam/answer/approve/${userId}/${questionId}`,
+        data
+      );
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["submitted_answer", userId, questionId],
+      });
+    },
+  });
+}
+
+export function useGetSubmittedAnswerByQuestionId(questionId: string) {
+  return useQuery({
+    queryKey: ["submitted_answers", questionId],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/api/exam/answer/submitted_answers/${questionId}`
+      );
+      return res.data;
+    },
+  });
+}
+
+export function useGetAnswerByUserIdAndQuestionId(
+  userId: string,
+  questionId: string
+) {
+  return useQuery({
+    queryKey: ["submitted_answer", userId, questionId],
+    queryFn: async () => {
+      const res = await axios.get(`/api/exam/answer/${userId}/${questionId}`);
+      return res.data;
+    },
+  });
+}

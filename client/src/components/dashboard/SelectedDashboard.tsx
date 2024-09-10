@@ -32,7 +32,7 @@ function SelectedDashboard() {
               <h5 className="card-title">upload เอกสาร</h5>
               <ul className="card-text">
                 <li>หลักฐานการชำระเงิน</li>
-                <li>ปพ</li>
+                <li>ปพ.7</li>
                 <li>ใบขออนุญาติผู้ปกครอง</li>
               </ul>
             </div>
