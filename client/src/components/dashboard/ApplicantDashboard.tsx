@@ -38,10 +38,17 @@ const questionSet = [
 function ApplicantDashboard() {
   return (
     <section className="container py-5">
+      <div className="mb-4 rounded border p-3 bg-dark">
+        <h3>คำชี้แจงทำข้อสอบ</h3>
+        ข้อสอบ มีคะแนนเต็ม 100 คะแนน ประกอบไปด้วยโจทย์ที่หลากหลาย
+        ไม่จำกัดเวลาในการทำ แต่เมื่อกดไปข้อถัดไป
+        จะไม่สามารถย้อนกลับมาทำข้อก่อนหน้าได้
+        โปรดตรวจสอบคำตอบก่อนกดข้อถัดไปทุกครั้ง
+      </div>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {questionSet.map(({ title, to, detail }) => (
           <div
-            className="col"
+            className="col col-md-6 col-lg-3"
             key={`card-${title}`}
           >
             <div className="card h-100">

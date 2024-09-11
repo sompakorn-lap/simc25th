@@ -92,7 +92,11 @@ function Exam() {
         />
       ) : null}
       <div className="card-body">
-        <p style={{ whiteSpace: "pre-line" }}>{questionText}</p>
+        <div className="mb-2">
+          {questionText.split(" \\n ").map((text: string) => (
+            <p className="m-0">{text}</p>
+          ))}
+        </div>
         {questionType === "MCQ" ? (
           <ExamMCQ
             register={register}
