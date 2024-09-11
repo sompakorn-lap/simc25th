@@ -2,9 +2,10 @@ import { useState } from "react";
 
 type SubmitButtonProps = {
   label: string;
+  disabled: boolean;
 };
 
-function SubmitButton({ label }: SubmitButtonProps) {
+function SubmitButton({ label, disabled }: SubmitButtonProps) {
   const [step, setStep] = useState(1);
 
   if (step === 1)
@@ -14,6 +15,7 @@ function SubmitButton({ label }: SubmitButtonProps) {
           type="button"
           className="btn btn-primary w-100"
           onClick={() => setStep(2)}
+          disabled={disabled}
         >
           {label}
         </button>
@@ -23,7 +25,7 @@ function SubmitButton({ label }: SubmitButtonProps) {
   if (step === 2)
     return (
       <div className="mb-2">
-        <div className="row row-cols-1 row-cols-md-2 g-4 mb-2">
+        <div className="row row-cols-1 row-cols-md-2 g-4">
           <div className="col">
             <button
               className="btn btn-success w-100"

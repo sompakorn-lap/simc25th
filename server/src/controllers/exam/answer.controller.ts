@@ -102,7 +102,7 @@ export async function submitAnswerByQuestionId(
         where: {
           userId_questionId: { userId, questionId },
         },
-        data: { score },
+        data: { score, status: "APPROVED" },
       });
     }
 

@@ -4,10 +4,11 @@ import * as yup from "yup";
 import Form from "./ui/Form";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
-import SubmitButton from "./ui/SubmitButton";
 import { useSignUp } from "../api/auth.api";
 import { AxiosError } from "axios";
 import Loading from "./Loading";
+import SubmitButton from "./ui/SubmitButton";
+import { useState } from "react";
 
 const SignUpFormSchema = yup.object({
   fullname: yup.string().required(),
@@ -25,6 +26,8 @@ function SignUpForm() {
   const { control, handleSubmit } = useForm<SignUpFormType>({
     resolver: yupResolver(SignUpFormSchema),
   });
+
+  const [allow, setAllow] = useState<boolean>(false);
 
   const { mutate, isPending, isSuccess, error } = useSignUp();
   const errorMessage = (error as AxiosError)?.response?.data as string;
@@ -83,7 +86,40 @@ function SignUpForm() {
         <option value="มัธยมศึกษาชั้นปีที่ 5">มัธยมศึกษาชั้นปีที่ 5</option>
         <option value="มัธยมศึกษาชั้นปีที่ 6">มัธยมศึกษาชั้นปีที่ 6</option>
       </Select>
-      <SubmitButton label="ยืนยันการลงทะเบียน" />
+      <div className="mb-2 rounded border p-2">
+        <p className="mb-2">
+          นโยบายข้อมูลส่วนบุคคลตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562
+          (PDPA)
+          การเก็บข้อมูลในครั้งนี้ดำเนินการจัดเก็บข้อมูลโดยทีมงานและคณะกรรมการค่ายเส้นทางสู่หมอศิริราช
+          ครั้งที่ 25 เพื่อใช้ในการคัดเลือกนักเรียนมัธยมศึกษาตอนปลายเท่านั้น
+          และจะถูกทำลายภายใน 1
+          ปีหลังสิ้นสุดวาระการปฏิบัติงานของทีมงานและคณะกรรมการค่ายเส้นทางสู่หมอศิริราช
+          ครั้งที่ 25 เว้นแต่จะมีการดำเนินการตามที่ท่านให้ความยินยอมไว้ [
+          <a href="https://docs.google.com/document/d/14fAVxh2lfIlln4U909tRqyMizq7k89hNa0uinrcLmcs/edit">
+            รายละเอียดเพิ่มเติม
+          </a>
+          ]
+        </p>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="allow"
+            onChange={(event) => setAllow(event.target.checked)}
+          />
+          <label
+            className="form-check-label"
+            htmlFor="allow"
+          >
+            {" "}
+            Allow
+          </label>
+        </div>
+      </div>
+      <SubmitButton
+        label="ยืนยันการลงทะเบียน"
+        disabled={!allow}
+      />
       <div className="mb-2">
         <span className="text-danger">{errorMessage}</span>
       </div>

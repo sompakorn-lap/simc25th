@@ -124,7 +124,10 @@ function CreateQuestionPage() {
               </div>
             </>
           ) : null}
-          <SubmitButton label="ยืนยันการสร้าง" />
+          <SubmitButton
+            label="ยืนยันการสร้าง"
+            disabled={false}
+          />
         </Form>
       </section>
     </ProtectedRouteWithRoles>

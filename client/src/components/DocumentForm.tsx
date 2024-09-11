@@ -41,7 +41,10 @@ function DocumentForm({ control, ...formProps }: DocumentFormProps) {
         disabled={false}
         type="file"
       />
-      <SubmitButton label="ยืนยันการส่ง" />
+      <SubmitButton
+        label="ยืนยันการส่ง"
+        disabled={false}
+      />
     </Form>
   );
 }

@@ -154,7 +154,10 @@ function ProfileForm({
         name="dietaryLimitation"
         disabled={disabled}
       />
-      <SubmitButton label={submitButtonLabel} />
+      <SubmitButton
+        label={submitButtonLabel}
+        disabled={false}
+      />
     </Form>
   );
 }
