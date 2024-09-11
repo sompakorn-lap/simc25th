@@ -1,10 +1,13 @@
+import ProtectedRouteWithRoles from "../components/ProtectedRouteWithRoles";
 import QuestionList from "../components/QuestionList";
 
 function QuestionPage() {
   return (
-    <section>
-      <QuestionList />
-    </section>
+    <ProtectedRouteWithRoles allowedRoles={["ADMIN"]}>
+      <section>
+        <QuestionList />
+      </section>
+    </ProtectedRouteWithRoles>
   );
 }
 

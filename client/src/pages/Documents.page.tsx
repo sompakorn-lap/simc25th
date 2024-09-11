@@ -1,10 +1,13 @@
 import DocumentList from "../components/DocumentList";
+import ProtectedRouteWithRoles from "../components/ProtectedRouteWithRoles";
 
 function DocumentsPage() {
   return (
-    <section>
-      <DocumentList />
-    </section>
+    <ProtectedRouteWithRoles allowedRoles={["ADMIN"]}>
+      <section>
+        <DocumentList />
+      </section>
+    </ProtectedRouteWithRoles>
   );
 }
 

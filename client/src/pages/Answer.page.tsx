@@ -1,10 +1,13 @@
 import AnswerList from "../components/AnswerList";
+import ProtectedRouteWithRoles from "../components/ProtectedRouteWithRoles";
 
 function AnswerPage() {
   return (
-    <section>
-      <AnswerList />
-    </section>
+    <ProtectedRouteWithRoles allowedRoles={["ADMIN"]}>
+      <section>
+        <AnswerList />
+      </section>
+    </ProtectedRouteWithRoles>
   );
 }
 

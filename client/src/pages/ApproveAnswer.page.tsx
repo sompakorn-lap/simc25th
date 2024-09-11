@@ -1,10 +1,13 @@
 import ApproveAnswerForm from "../components/ApproveAnswerForm";
+import ProtectedRouteWithRoles from "../components/ProtectedRouteWithRoles";
 
 function ApproveAnswerPage() {
   return (
-    <section>
-      <ApproveAnswerForm />
-    </section>
+    <ProtectedRouteWithRoles allowedRoles={["ADMIN"]}>
+      <section>
+        <ApproveAnswerForm />
+      </section>
+    </ProtectedRouteWithRoles>
   );
 }
 

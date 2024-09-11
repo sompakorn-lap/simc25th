@@ -37,8 +37,8 @@ function ProfilePage() {
 
   return (
     <ProtectedRouteWithDatetime
-      startDatetime="Mon Sep 09 2024 21:10:00 GMT+0700 (Indochina Time)"
-      endDatetime="Mon Sep 09 2024 21:20:00 GMT+0700 (Indochina Time)"
+      startDatetime="Thu Oct 31 2024 12:00:00 GMT+0700 (Indochina Time)"
+      endDatetime="Thu Nov 14 2024 23:59:59 GMT+0700 (Indochina Time)"
     >
       <ProtectedRouteWithRoles allowedRoles={["SELECTED"]}>
         <section>

@@ -77,13 +77,14 @@ function Exam() {
     );
   return (
     <form
-      className="card"
+      className="card bg-light text-dark fs-5"
+      data-bs-theme="light"
       onSubmit={handleSubmit((data: AnswerType) => submitAnswer.mutate(data))}
     >
       <div className="card-header text-start">
-        <h5>{`PART: ${questionSetTH[questionSet]} (${currentIndex + 1}/${
+        <h4>{`PART: ${questionSetTH[questionSet]} (${currentIndex + 1}/${
           questionIds.length
-        })`}</h5>
+        })`}</h4>
       </div>
       {questionImageName ? (
         <img
@@ -135,7 +136,7 @@ function ExamMCQ({
   const id = useId();
 
   return (
-    <div className="form-check">
+    <div className="form-check bg-light text-dark">
       {choices.map(({ text }, index) => (
         <div key={`${id}-${index}`}>
           <input
@@ -160,7 +161,7 @@ function ExamMCQ({
 function ExamShortAnswer({ register }: { register: any }) {
   return (
     <input
-      className="form-control"
+      className="form-control bg-light text-dark"
       {...register("answer")}
     />
   );
@@ -169,7 +170,7 @@ function ExamShortAnswer({ register }: { register: any }) {
 function ExamLongAnswer({ register }: { register: any }) {
   return (
     <textarea
-      className="form-control"
+      className="form-control bg-light text-dark"
       {...register("answer")}
     />
   );

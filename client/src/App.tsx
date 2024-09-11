@@ -16,7 +16,7 @@ import AnswerPage from "./pages/Answer.page";
 import ApproveDocumentPage from "./pages/ApproveDocument.page";
 import DocumentsPage from "./pages/Documents.page";
 import ProfilesPage from "./pages/Profiles.page";
-// import WebBg from "./assets/web-bg.png";
+import WebBg from "./assets/web-bg.png";
 
 function App() {
   return (
@@ -26,10 +26,10 @@ function App() {
         gridTemplateRows: "auto 1fr auto",
         width: "100vw",
         height: "100vh",
-        // backgroundImage: `url(${WebBg})`,
-        // backgroundRepeat: "repeat",
-        // backgroundPosition: "0 0",
-        // backgroundSize: "auto 100%",
+        backgroundImage: `url(${WebBg})`,
+        backgroundRepeat: "repeat",
+        backgroundPosition: "0 0",
+        backgroundSize: "auto 100%",
       }}
       data-bs-theme="dark"
     >

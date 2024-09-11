@@ -1,10 +1,13 @@
 import ProfileList from "../components/ProfileList";
+import ProtectedRouteWithRoles from "../components/ProtectedRouteWithRoles";
 
 function ProfilesPage() {
   return (
-    <section>
-      <ProfileList />
-    </section>
+    <ProtectedRouteWithRoles allowedRoles={["ADMIN"]}>
+      <section>
+        <ProfileList />
+      </section>
+    </ProtectedRouteWithRoles>
   );
 }
 
