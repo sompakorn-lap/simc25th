@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import CarouselImage1 from "../assets/carousel/Slide1.png";
-import CarouselImage2 from "../assets/carousel/Slide2.png";
-import CarouselImage3 from "../assets/carousel/Slide3.png";
+import CarouselImage1 from "../assets/carousel/Image1.jpg";
+import CarouselImage2 from "../assets/carousel/Image2.jpg";
+import CarouselImage3 from "../assets/carousel/Image3.jpg";
+import CarouselImage4 from "../assets/carousel/Image4.jpg";
+import CarouselImage5 from "../assets/carousel/Image5.jpg";
 import SignUpImage from "../assets/signup-bg.jpg";
 
 function HomePage() {
@@ -38,13 +40,6 @@ function HomePage() {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img
-                src={CarouselImage1}
-                className="d-block w-100"
-                alt="..."
-              />
-            </div>
-            <div className="carousel-item">
-              <img
                 src={CarouselImage2}
                 className="d-block w-100"
                 alt="..."
@@ -52,7 +47,28 @@ function HomePage() {
             </div>
             <div className="carousel-item">
               <img
+                src={CarouselImage1}
+                className="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div className="carousel-item">
+              <img
                 src={CarouselImage3}
+                className="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                src={CarouselImage4}
+                className="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                src={CarouselImage5}
                 className="d-block w-100"
                 alt="..."
               />

@@ -25,11 +25,11 @@ function App() {
         display: "grid",
         gridTemplateRows: "auto 1fr auto",
         width: "100vw",
-        height: "100vh",
+        minHeight: "100vh",
         backgroundImage: `url(${WebBg})`,
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "repeat-y",
         backgroundPosition: "0 0",
-        backgroundSize: "auto 100%",
+        backgroundSize: "cover",
       }}
       data-bs-theme="dark"
     >

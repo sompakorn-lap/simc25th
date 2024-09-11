@@ -34,7 +34,10 @@ function SignUpForm() {
   const disabled = isPending;
 
   if (isPending) return <Loading />;
-  if (isSuccess) return <h1>น้องรอรับอีเมลเข้าสู่เว็บไซต์ได้เลย</h1>;
+  if (isSuccess)
+    return (
+      <h1>Website สำหรับทำข้อสอบจะถูกส่งให้ทาง E-mail ที่ทำการลงทะเบียนไว้</h1>
+    );
   return (
     <Form onSubmit={handleSubmit((data: SignUpFormType) => mutate(data))}>
       <Input
