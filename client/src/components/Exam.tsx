@@ -19,7 +19,7 @@ const questionSetTH: Record<string, string> = {
   IQ: "เชาวน์ปัญญา",
   ETHICS: "จริยธรรม",
   SIRIRAJ: "ศิริราช",
-  KNOWLEGDE: "ความรู้ทางการแพทย์",
+  KNOWLEDGE: "ความรู้ทางการแพทย์",
   CREATIVE: "สร้างสรรค์",
 };
 

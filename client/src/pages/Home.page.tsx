@@ -5,8 +5,23 @@ import CarouselImage3 from "../assets/carousel/Image3.jpg";
 import CarouselImage4 from "../assets/carousel/Image4.jpg";
 import CarouselImage5 from "../assets/carousel/Image5.jpg";
 import SignUpImage from "../assets/signup-bg.jpg";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function HomePage() {
+  const [sponsor, setSponsor] = useState([]);
+
+  async function getSponsor() {
+    try {
+      const res = await axios.get("/api/sponsor");
+      setSponsor(res.data);
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    getSponsor();
+  }, []);
+
   return (
     <div className="grid">
       <section className="shadow border rounded my-4 p-3">
@@ -283,6 +298,18 @@ function HomePage() {
           7. ไม่อนุญาตให้ผู้สมัครปรึกษาหรือเผยแพร่ข้อสอบให้กับผู้อื่น
           หากพบการทุจริตในการสอบ ผู้สมัครจะถูกตัดสิทธิ์การพิจารณาผลสอบ
         </h6>
+      </section>
+
+      <section className="shadow border rounded my-4 p-3 row row-cols-2 row-cols-lg-4 g-4">
+        {sponsor.map(({ id, name, imageId }) => (
+          <div key={id}>
+            <img
+              className="rounded"
+              src={`https://drive.google.com/thumbnail?id=${imageId}`}
+              alt={name}
+            />
+          </div>
+        ))}
       </section>
     </div>
   );

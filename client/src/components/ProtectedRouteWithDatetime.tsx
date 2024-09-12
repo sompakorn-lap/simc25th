@@ -15,7 +15,7 @@ function ProtectedRouteWithDatetime({
   const end: number = new Date(endDatetime).getTime();
   const now: number = Date.now();
 
-  const allow = (start <= now && now <= end) || true;
+  const allow = start <= now && now <= end;
   if (allow) return <>{children}</>;
   else return <h1>not available</h1>;
 }

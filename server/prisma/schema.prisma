@@ -132,3 +132,9 @@ model Answer {
 
   @@unique([userId, questionId])
 }
+
+model Sponsor {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  imageId String
+}
