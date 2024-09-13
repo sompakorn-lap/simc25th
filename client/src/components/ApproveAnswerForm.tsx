@@ -55,9 +55,9 @@ function ApproveAnswerForm() {
       <div className="card-body">
         <p>{questionText}</p>
         <div>
-          <input
+          <textarea
+            className="w-100"
             {...register("answer")}
-            type="text"
             disabled
           />
         </div>
