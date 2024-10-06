@@ -5,7 +5,7 @@ function SignUpPage() {
   return (
     <ProtectedRouteWithDatetime
       startDatetime="Fri Sep 13 2024 16:00:00 GMT+0700 (Indochina Time)"
-      endDatetime="Sun Oct 06 2024 23:59:59 GMT+0700 (Indochina Time)"
+      endDatetime="Mon Oct 07 2024 11:59:59 GMT+0700 (Indochina Time)"
     >
       <section>
         <h3>ลงทะเบียน</h3>
