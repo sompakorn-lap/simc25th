@@ -6,7 +6,7 @@ function ExamPage() {
   return (
     <ProtectedRouteWithDatetime
       startDatetime="Fri Sep 13 2024 16:00:00 GMT+0700 (Indochina Time)"
-      endDatetime="Tue Oct 08 2024 23:59:59 GMT+0700 (Indochina Time)"
+      endDatetime="Mon Oct 07 2024 23:59:59 GMT+0700 (Indochina Time)"
     >
       <ProtectedRouteWithRoles allowedRoles={["APPLICANT"]}>
         <section>
